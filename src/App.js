@@ -1,25 +1,48 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Header from './components/Header';
+import NoteCard from './components/NoteCard'
 import './App.css';
 
 class App extends Component {
+  state = {
+    title: prompt('Name your notes!'),
+    note : '',
+    notes: [],
+    time: ''
+  }
+
+  handleDelete = (event) => {
+    
+  }
+
+  handleAdd = (event) => {
+    const {notes, note} = this.state
+    let newNote = notes.push(note)  
+    this.setState({
+      notes: newNote
+    })
+  }
+
+  handleEdit = (event) => {
+    this.setState({
+
+    })
+  }
+
+  handleNote = (event) => {
+    this.setState({
+      note: event.target.value
+    })
+  }
+
   render() {
+    const {title, getTime, note} = this.state
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Header title={title}></Header>
+        <button onClick={this.handleAdd}>Add New Note</button>
+        <NoteCard handleDelete={this.handleDelete} handleEdit={this.handleEdit} timestamp={getTime} yourNotes={note}></NoteCard>
       </div>
     );
   }
