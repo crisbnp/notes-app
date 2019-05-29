@@ -9,8 +9,7 @@ class Textarea extends Component {
         content:'',
     }
 
-    onChange = (event) => {
-        const {target} = event
+    onChange = ({target}) => {
         const {name, value} = target
         this.setState({
             [name]: value
