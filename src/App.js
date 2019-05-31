@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import Textarea from './components/Textarea'
-
-
-import Header from './components/Header';
-import NoteCard from './components/NoteCard'
-import './App.css';
+import Note from './components/Note'
 
 class App extends Component {
   state = {
@@ -15,22 +11,29 @@ class App extends Component {
     let notes = JSON.parse(localStorage.getItem('notes'))
     let newNotes = JSON.stringify([...notes, data])
     localStorage.setItem('notes', newNotes)
+    this.setState({notes: [...notes, data]})
   }
 
   componentDidMount () {
-    let notes = localStorage.getItem('notes')
+    let notes = JSON.parse(localStorage.getItem('notes'))
     if (!notes) {
       localStorage.setItem('notes', JSON.stringify([]))
     }
+    this.setState({notes: notes || []})
   }
 
   render() {
-    const {title, getTime, note} = this.state
-
+    const {notes} = this.state
+    console.log(notes)
     return (
   
       <div className="App">
             <Textarea onSubmit={this.handleSubmit}/>
+            {notes && notes.map(note => {
+              return (
+                <Note key={note.id} title={note.title} content={note.content}/>
+              )
+            })}
       </div>
     );
   }
