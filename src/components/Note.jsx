@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const Card = styled.div`
     text-align: left;
     background: papayawhip;
-    box-shadow: 5px 5px lightgray;   
+    box-shadow: 5px 5px lightgray;
     border: 1px solid blue;
     padding: 2em;
 `;
@@ -19,8 +19,8 @@ const Content = styled.p`
     color: palevioletred;
 `
 
-const Note = ({title, content}) => {
-    return(
+const Note = ({ title, content }) => {
+    return (
         <Card>
             <Title>{title}</Title>
             <Content>{content}</Content>
