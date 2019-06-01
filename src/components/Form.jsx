@@ -62,6 +62,7 @@ class Form extends Component {
         return (
             <div>
                 <Input
+                    inputColor="red"
                     name="title"
                     type="text"
                     value={this.state.title}
