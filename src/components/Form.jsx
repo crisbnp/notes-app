@@ -12,7 +12,7 @@ const Input = styled.input`
 `;
 
 const Textarea = styled.textarea`
-padding: 0.5em;
+  padding: 0.5em;
   margin: 0.5em;
   color: ${props => props.inputColor || "palevioletred"};
   background: rebeccapurple;
@@ -62,7 +62,6 @@ class Form extends Component {
         return (
             <div>
                 <Input
-                    inputColor="red"
                     name="title"
                     type="text"
                     value={this.state.title}
@@ -75,7 +74,7 @@ class Form extends Component {
                     value={this.state.content}
                     onChange={this.onChange}
                 />
-                <Button onClick={this.onSubmit}>Save</Button>
+                <Button primary onClick={this.onSubmit}>Save</Button>
             </div>
         )
     }
