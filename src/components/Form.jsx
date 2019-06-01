@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import nanoid from 'nanoid';
+import React, { Component } from "react";
+import styled from "styled-components";
+import nanoid from "nanoid";
 
 const Input = styled.input`
   padding: 0.5em;
@@ -15,69 +15,73 @@ const Textarea = styled.textarea`
   padding: 0.5em;
   margin: 0.5em;
   color: ${props => props.inputColor || "palevioletred"};
-  background: rebeccapurple;
+  background: papayawhip;
   border: none;
   border-radius: 3px;
-
-`
+  resize: none;
+`;
 
 const Button = styled.button`
-  background: ${props => props.primary ? "palevioletred" : "white"};
-  color: ${props => props.primary ? "white" : "palevioletred"};
+  background: ${props => (props.primary ? "palevioletred" : "white")};
+  color: ${props => (props.primary ? "white" : "palevioletred")};
   font-size: 1em;
-  margin: 1em;
+  margin: 0.5em;
   padding: 0.25em 1em;
   border: 2px solid palevioletred;
   border-radius: 3px;
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+`;
 
 class Form extends Component {
+  state = {
+    title: "",
+    content: ""
+  };
 
-    state = {
-        title: '',
-        content: '',
-    }
+  onChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      [name]: value
+    });
+  };
 
-    onChange = ({ target }) => {
-        const { name, value } = target
-        this.setState({
-            [name]: value
-        })
-    }
+  onSubmit = () => {
+    const { onSubmit } = this.props;
+    let data = {
+      ...this.state,
+      id: nanoid(),
+      time: new Date()
+    };
+    onSubmit(data);
+  };
 
-    onSubmit = () => {
-        const { onSubmit } = this.props
-        let data = {
-            ...this.state,
-            id: nanoid(),
-            time: new Date()
-        }
-        onSubmit(data)
-    }
-
-    render() {
-
-
-        return (
-            <div>
-                <Input
-                    name="title"
-                    type="text"
-                    value={this.state.title}
-                    onChange={this.onChange}
-                />
-                <Textarea
-                    name="content"
-                    rows='4'
-                    cols='20'
-                    value={this.state.content}
-                    onChange={this.onChange}
-                />
-                <Button primary onClick={this.onSubmit}>Save</Button>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <Wrapper>
+        <Input
+          name="title"
+          type="text"
+          value={this.state.title}
+          onChange={this.onChange}
+        />
+        <Textarea
+          name="content"
+          rows="20"
+          cols="20"
+          value={this.state.content}
+          onChange={this.onChange}
+        />
+        <Button primary onClick={this.onSubmit}>
+          Save
+        </Button>
+      </Wrapper>
+    );
+  }
 }
 
 export default Form;
