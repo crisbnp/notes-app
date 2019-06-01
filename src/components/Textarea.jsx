@@ -32,7 +32,7 @@ const Button = styled.button`
 `;
 
 
-class Textarea extends Component {
+class Form extends Component {
 
     state = {
         title: '',
@@ -80,4 +80,4 @@ class Textarea extends Component {
     }
 }
 
-export default Textarea;
+export default Form;

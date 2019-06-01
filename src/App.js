@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Textarea from './components/Textarea'
+import Form from './components/Form'
 import Note from './components/Note'
 
 class App extends Component {
@@ -28,7 +28,7 @@ class App extends Component {
     return (
 
       <div className="App">
-        <Textarea onSubmit={this.handleSubmit} />
+        <Form onSubmit={this.handleSubmit} />
         {notes && notes.map(({ id, title, content }) => {
           return (
             <Note
