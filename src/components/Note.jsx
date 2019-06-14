@@ -22,9 +22,9 @@ const Content = styled.p`
   color: palevioletred;
 `;
 
-const Note = ({ title, content }) => {
+const Note = ({ title, content, handleOpen, id }) => {
   return (
-    <Card>
+    <Card onClick={() => handleOpen(id)}>
       <Title>{title}</Title>
       <Content>{content}</Content>
     </Card>

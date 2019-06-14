@@ -31,7 +31,7 @@ const Button = styled.button`
   border-radius: 3px;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   max-width: 50%;
@@ -39,26 +39,58 @@ const Wrapper = styled.div`
 
 class Form extends Component {
   state = {
-    title: "",
-    content: ""
+    note: {
+      title: "",
+      content: ""
+    },
+    valid: false
   };
+
+  input = null
+  textArea = null
+
+  componentDidMount() {
+    const { activeNote } = this.props
+    console.log(activeNote)
+    if (activeNote) {
+      let notes = JSON.parse(localStorage.getItem('notes'))
+      let note = notes.filter(note => note.id === activeNote)[0]
+      this.setState({
+        note
+      })
+    }
+  }
 
   onChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
-      [name]: value
+      note: {
+        ...this.state.note,
+        [name]: value
+      }
+
     });
   };
 
   onSubmit = () => {
-    const { onSubmit } = this.props;
-    let data = {
-      ...this.state,
-      id: nanoid(),
-      time: new Date()
-    };
-    onSubmit(data);
+    if (this.checkIfValid()) {
+      const { onClick } = this.props;
+      let data = {
+        ...this.state.note,
+        id: nanoid(),
+        time: new Date()
+      };
+      onClick(data);
+    }
+
   };
+
+  checkIfValid = () => {
+    // if (this.input.validity.valueMissing) {
+    //   this.input.setCustomValidity("PLZ CREATE A USERNAME, YO!");
+    // }
+    return this.input.checkValidity() && this.textArea.checkValidity()
+  }
 
   render() {
     return (
@@ -66,19 +98,22 @@ class Form extends Component {
         <Input
           name="title"
           type="text"
-          value={this.state.title}
+          value={this.state.note.title}
           onChange={this.onChange}
+          ref={ref => { this.input = ref }}
+          required
         />
         <Textarea
           name="content"
           rows="20"
           cols="20"
-          value={this.state.content}
+          value={this.state.note.content}
           onChange={this.onChange}
+          ref={ref => { this.textArea = ref }}
+          required
         />
-        <Button primary onClick={this.onSubmit}>
-          Save
-        </Button>
+        <Button type='submit' primary onClick={this.onSubmit}>SAVE</Button>
+
       </Wrapper>
     );
   }

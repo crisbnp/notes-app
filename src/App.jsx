@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from "./components/Form";
 import Note from "./components/Note";
+import Modal from "./components/Modal"
 import styled from "styled-components";
 
 const PageWrapper = styled.div`
@@ -15,7 +16,9 @@ const NotesWrapper = styled.div`
 
 class App extends Component {
   state = {
-    notes: []
+    notes: [],
+    showModal: false,
+    activeNote: null
   };
 
   handleSubmit = data => {
@@ -26,6 +29,19 @@ class App extends Component {
       notes: [...notes, data]
     });
   };
+
+  handleClose = () => {
+    this.setState({
+      showModal: false
+    })
+  }
+
+  handleOpen = (activeNote) => {
+    this.setState({
+      showModal: true,
+      activeNote
+    })
+  }
 
   componentDidMount() {
     let notes = JSON.parse(localStorage.getItem("notes"));
@@ -38,17 +54,17 @@ class App extends Component {
   }
 
   render() {
-    const { notes } = this.state;
-    console.log(notes);
+    const { showModal, notes, activeNote } = this.state;
     return (
       <PageWrapper className="App">
-        <Form onSubmit={this.handleSubmit} />{" "}
+        <Form onClick={this.handleSubmit} />{" "}
         <NotesWrapper>
           {notes &&
             notes.map(({ id, title, content }) => {
-              return <Note key={id} title={title} content={content} />;
+              return <Note key={id} id={id} title={title} content={content} handleOpen={this.handleOpen} />;
             })}
         </NotesWrapper>
+        <Modal show={showModal} handleClose={this.handleClose}><Form onClick={this.handleSubmit} activeNote={activeNote} /></Modal>
       </PageWrapper>
     );
   }
