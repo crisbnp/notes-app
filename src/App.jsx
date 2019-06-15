@@ -38,7 +38,7 @@ class App extends Component {
       ...note,
       ...data
     }
-    // let newNotes = JSON.stringify([...notes, note]);
+
     let newNotes = notes.map(n => {
       if (n.id === note.id) {
         return note
@@ -83,7 +83,15 @@ class App extends Component {
         <NotesWrapper>
           {notes &&
             notes.map(({ id, title, content }) => {
-              return <Note key={id} id={id} title={title} content={content} handleOpen={this.handleOpen} />;
+              return (
+                <Note
+                  key={id}
+                  id={id}
+                  title={title}
+                  content={content}
+                  handleOpen={this.handleOpen}
+                />
+              )
             })}
         </NotesWrapper>
         {showModal && <Modal
@@ -91,7 +99,8 @@ class App extends Component {
           handleClose={this.handleClose}>
           <Form
             onEdit={this.handleEdit}
-            activeNote={activeNote} />
+            activeNote={activeNote}
+          />
         </Modal>
         }
       </PageWrapper>

@@ -51,7 +51,6 @@ class Form extends Component {
 
   componentDidMount() {
     const { activeNote } = this.props
-    console.log(activeNote)
     if (activeNote) {
       let notes = JSON.parse(localStorage.getItem('notes'))
       let note = notes.filter(note => note.id === activeNote)[0]
@@ -68,7 +67,6 @@ class Form extends Component {
         ...this.state.note,
         [name]: value
       }
-
     });
   };
 
@@ -102,9 +100,6 @@ class Form extends Component {
   };
 
   checkIfValid = () => {
-    // if (this.input.validity.valueMissing) {
-    //   this.input.setCustomValidity("PLZ CREATE A USERNAME, YO!");
-    // }
     return this.input.checkValidity() && this.textArea.checkValidity()
   }
 
