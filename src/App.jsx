@@ -30,6 +30,21 @@ class App extends Component {
     });
   };
 
+  handleEdit = data => {
+
+    let notes = JSON.parse(localStorage.getItem("notes"));
+    let note = notes.filter(note => note.id === data.id)[0]
+    note = {
+      ...note,
+      ...data
+    }
+    let newNotes = JSON.stringify([...notes, note]);
+    localStorage.setItem("notes", newNotes)
+    this.setState({
+      notes: [...notes, note]
+    })
+  }
+
   handleClose = () => {
     this.setState({
       showModal: false
@@ -57,14 +72,21 @@ class App extends Component {
     const { showModal, notes, activeNote } = this.state;
     return (
       <PageWrapper className="App">
-        <Form onClick={this.handleSubmit} />{" "}
+        <Form onSave={this.handleSubmit} />{" "}
         <NotesWrapper>
           {notes &&
             notes.map(({ id, title, content }) => {
               return <Note key={id} id={id} title={title} content={content} handleOpen={this.handleOpen} />;
             })}
         </NotesWrapper>
-        <Modal show={showModal} handleClose={this.handleClose}><Form onClick={this.handleSubmit} activeNote={activeNote} /></Modal>
+        {showModal && <Modal
+          show={showModal}
+          handleClose={this.handleClose}>
+          <Form
+            onEdit={this.handleEdit}
+            activeNote={activeNote} />
+        </Modal>
+        }
       </PageWrapper>
     );
   }

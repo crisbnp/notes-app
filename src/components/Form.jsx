@@ -72,17 +72,27 @@ class Form extends Component {
     });
   };
 
-  onSubmit = () => {
+  onSubmit = (e) => {
+    e.preventDefault()
+    const { onSave, onEdit, activeNote } = this.props;
+    let data
     if (this.checkIfValid()) {
-      const { onClick } = this.props;
-      let data = {
+      if (activeNote) {
+        data = {
+          ...this.state.note,
+          id: activeNote
+        }
+        onEdit(data)
+        return
+      }
+
+      data = {
         ...this.state.note,
         id: nanoid(),
         time: new Date()
       };
-      onClick(data);
+      onSave(data);
     }
-
   };
 
   checkIfValid = () => {
