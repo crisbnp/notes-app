@@ -10,11 +10,13 @@ const Overlay = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 `
+const ModalWrapper = styled.div`
+  position: relative;
+`
 
 const ModalBox = styled.div`
   position:fixed;
-  background: white;
-  width: 80%;
+  width: 100%;
   height: auto;
   top:50%;
   left:50%;
@@ -22,6 +24,9 @@ const ModalBox = styled.div`
 `
 
 const Button = styled.button`
+  position:absolute;
+  top:25%;
+  left:70%;
   background: palevioletred;
   color: white;
 `
@@ -29,8 +34,10 @@ const Button = styled.button`
 const Modal = ({ handleClose, show, children }) => {
   return (
     <Overlay show={show}>
-      <ModalBox>{children}</ModalBox>
-      <Button onClick={handleClose}>X</Button>
+      <ModalWrapper>
+        <ModalBox>{children}</ModalBox>
+        <Button onClick={handleClose}>X</Button>
+      </ModalWrapper>
     </Overlay>
   )
 }

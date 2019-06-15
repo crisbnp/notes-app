@@ -3,38 +3,46 @@ import styled from "styled-components";
 import nanoid from "nanoid";
 
 const Input = styled.input`
-  padding: 0.5em;
+  padding: 1em 0;
   margin: 0.5em;
   color: ${props => props.inputColor || "palevioletred"};
-  background: papayawhip;
-  border: none;
+  border: 2px solid rebeccapurple;
   border-radius: 3px;
+  width: 100%;
+  
 `;
 
 const Textarea = styled.textarea`
-  padding: 0.5em;
+  padding: 1em 0;
   margin: 0.5em;
   color: ${props => props.inputColor || "palevioletred"};
-  background: papayawhip;
-  border: none;
+  background: white;
+  border: 2px solid rebeccapurple;
   border-radius: 3px;
   resize: none;
+  width: 100%;
 `;
 
 const Button = styled.button`
   background: ${props => (props.primary ? "palevioletred" : "white")};
   color: ${props => (props.primary ? "white" : "palevioletred")};
+  width: 100%;
   font-size: 1em;
   margin: 0.5em;
-  padding: 0.25em 1em;
+  padding: 1em;
   border: 2px solid palevioletred;
   border-radius: 3px;
 `;
 
 const Wrapper = styled.form`
   display: flex;
+  padding: 20px;
   flex-direction: column;
-  max-width: 50%;
+  align-items: center;
+  width: 500px;
+  border: 2px solid papayawhip;
+  box-shadow: 5px 5px 12px lightgray;
+  background-color: papayawhip;
 `;
 
 class Form extends Component {

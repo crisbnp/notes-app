@@ -8,6 +8,12 @@ const PageWrapper = styled.div`
   margin: 10px;
 `;
 
+const FormWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
 const NotesWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -79,10 +85,12 @@ class App extends Component {
     const { showModal, notes, activeNote } = this.state;
     return (
       <PageWrapper className="App">
-        <Form onSave={this.handleSubmit} />{" "}
+        <FormWrapper>
+          <Form onSave={this.handleSubmit} />
+        </FormWrapper>
         <NotesWrapper>
           {notes &&
-            notes.map(({ id, title, content }) => {
+            notes.map(({ id, title, content, time }) => {
               return (
                 <Note
                   key={id}
@@ -90,6 +98,7 @@ class App extends Component {
                   title={title}
                   content={content}
                   handleOpen={this.handleOpen}
+                  date={time}
                 />
               )
             })}
@@ -97,10 +106,12 @@ class App extends Component {
         {showModal && <Modal
           show={showModal}
           handleClose={this.handleClose}>
+          <FormWrapper>
           <Form
             onEdit={this.handleEdit}
             activeNote={activeNote}
           />
+          </FormWrapper>
         </Modal>
         }
       </PageWrapper>

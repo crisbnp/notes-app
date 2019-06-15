@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { timeStamp } from './helpers';
 
 const Card = styled.div`
   text-align: left;
@@ -10,6 +11,7 @@ const Card = styled.div`
   padding: 2em;
   min-width: 25%;
   margin-top: 10px;
+  position: relative;
 `;
 
 const Title = styled.h1`
@@ -22,11 +24,22 @@ const Content = styled.p`
   color: palevioletred;
 `;
 
-const Note = ({ title, content, handleOpen, id }) => {
+const Date = styled.div`
+  font-size: 1em;
+  font-family: monospace;
+  color: rebeccapurple;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+`
+
+const Note = ({ title, content, handleOpen, id, date }) => {
+  console.log(typeof date)
   return (
     <Card onClick={() => handleOpen(id)}>
       <Title>{title}</Title>
       <Content>{content}</Content>
+      <Date>{timeStamp(date)}</Date>
     </Card>
   );
 };
