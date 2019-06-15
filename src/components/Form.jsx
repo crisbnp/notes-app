@@ -92,6 +92,12 @@ class Form extends Component {
         time: new Date()
       };
       onSave(data);
+      this.setState({
+        note: {
+          title: "",
+          content: ""
+        }
+      })
     }
   };
 

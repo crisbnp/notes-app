@@ -38,10 +38,17 @@ class App extends Component {
       ...note,
       ...data
     }
-    let newNotes = JSON.stringify([...notes, note]);
-    localStorage.setItem("notes", newNotes)
+    // let newNotes = JSON.stringify([...notes, note]);
+    let newNotes = notes.map(n => {
+      if (n.id === note.id) {
+        return note
+      }
+      return n
+    })
+    localStorage.setItem("notes", JSON.stringify(newNotes))
     this.setState({
-      notes: [...notes, note]
+      notes: newNotes,
+      showModal: false
     })
   }
 
