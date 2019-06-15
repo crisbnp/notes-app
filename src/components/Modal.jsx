@@ -11,10 +11,13 @@ const Overlay = styled.div`
   background: rgba(0, 0, 0, 0.6);
 `
 const ModalWrapper = styled.div`
-  position: relative;
-`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fe;`
 
 const ModalBox = styled.div`
+  
+  grid-row: 2;
   position:fixed;
   width: 100%;
   height: auto;
@@ -24,9 +27,8 @@ const ModalBox = styled.div`
 `
 
 const Button = styled.button`
-  position:absolute;
-  top:25%;
-  left:70%;
+  grid-row: 1;
+  padding: 30px;
   background: palevioletred;
   color: white;
 `
