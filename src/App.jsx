@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import Form from "./components/Form";
 import Note from "./components/Note";
 import Modal from "./components/Modal"
-import styled from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
+
+const GlobalStyles = createGlobalStyle`
+  * {
+  box-sizing: border-box;
+  }
+`
 
 const PageWrapper = styled.div`
   margin: 10px;
@@ -71,6 +77,15 @@ class App extends Component {
     })
   }
 
+  handleDelete = (activeNote) => {
+    let notes = JSON.parse(localStorage.getItem("notes"));
+    let newNotes = notes.filter(n => n.id !== activeNote)
+    localStorage.setItem("notes", JSON.stringify(newNotes))
+    this.setState({
+      notes:newNotes
+    })
+  }
+
   componentDidMount() {
     let notes = JSON.parse(localStorage.getItem("notes"));
     if (!notes) {
@@ -84,37 +99,41 @@ class App extends Component {
   render() {
     const { showModal, notes, activeNote } = this.state;
     return (
-      <PageWrapper className="App">
-        <FormWrapper>
-          <Form onSave={this.handleSubmit} />
-        </FormWrapper>
-        <NotesWrapper>
-          {notes &&
-            notes.map(({ id, title, content, time }) => {
-              return (
-                <Note
-                  key={id}
-                  id={id}
-                  title={title}
-                  content={content}
-                  handleOpen={this.handleOpen}
-                  date={time}
-                />
-              )
-            })}
-        </NotesWrapper>
-        {showModal && <Modal
-          show={showModal}
-          handleClose={this.handleClose}>
+      <React.Fragment>
+        <GlobalStyles/>
+        <PageWrapper className="App">
           <FormWrapper>
-          <Form
-            onEdit={this.handleEdit}
-            activeNote={activeNote}
-          />
+            <Form onSave={this.handleSubmit} />
           </FormWrapper>
-        </Modal>
-        }
-      </PageWrapper>
+          <NotesWrapper>
+            {notes &&
+              notes.map(({ id, title, content, time }) => {
+                return (
+                  <Note
+                    key={id}
+                    id={id}
+                    title={title}
+                    content={content}
+                    handleOpen={this.handleOpen}
+                    handleDelete={this.handleDelete}
+                    date={time}
+                  />
+                )
+              })}
+          </NotesWrapper>
+          {showModal && <Modal
+            show={showModal}
+            handleClose={this.handleClose}>
+            <FormWrapper>
+              <Form
+                onEdit={this.handleEdit}
+                activeNote={activeNote}
+              />
+            </FormWrapper>
+          </Modal>
+          }
+        </PageWrapper>
+      </React.Fragment>
     );
   }
 }

@@ -3,8 +3,9 @@ import styled from "styled-components";
 import nanoid from "nanoid";
 
 const Input = styled.input`
-  padding: 1em 0;
-  margin: 0.5em;
+  font-size: 1em;
+  padding: 1em 0.5em;
+  margin: 0.5em 1em;
   color: ${props => props.inputColor || "palevioletred"};
   border: 2px solid rebeccapurple;
   border-radius: 3px;
@@ -13,8 +14,9 @@ const Input = styled.input`
 `;
 
 const Textarea = styled.textarea`
-  padding: 1em 0;
-  margin: 0.5em;
+  font-size: 1em;
+  padding: 1em 0.5em;
+  margin: 0.5em 1em;
   color: ${props => props.inputColor || "palevioletred"};
   background: white;
   border: 2px solid rebeccapurple;
@@ -24,11 +26,11 @@ const Textarea = styled.textarea`
 `;
 
 const Button = styled.button`
+  box-sizing: border-box;
   background: ${props => (props.primary ? "palevioletred" : "white")};
   color: ${props => (props.primary ? "white" : "palevioletred")};
   width: 100%;
   font-size: 1em;
-  margin: 0.5em;
   padding: 1em;
   border: 2px solid palevioletred;
   border-radius: 3px;
@@ -36,10 +38,10 @@ const Button = styled.button`
 
 const Wrapper = styled.form`
   display: flex;
-  padding: 20px;
+  padding: 1em;
   flex-direction: column;
   align-items: center;
-  width: 500px;
+  width: 800px;
   border: 2px solid papayawhip;
   box-shadow: 5px 5px 12px lightgray;
   background-color: papayawhip;
@@ -113,8 +115,9 @@ class Form extends Component {
 
   render() {
     return (
-      <Wrapper>
+      <Wrapper autoComplete="off">
         <Input
+          placeholder='Title'
           name="title"
           type="text"
           value={this.state.note.title}
@@ -123,6 +126,7 @@ class Form extends Component {
           required
         />
         <Textarea
+          placeholder='Take a note...'
           name="content"
           rows="20"
           cols="20"

@@ -14,6 +14,11 @@ const Card = styled.div`
   position: relative;
 `;
 
+const CardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 const Title = styled.h1`
   font-size: 1.5em;
   color: palevioletred;
@@ -33,14 +38,23 @@ const Date = styled.div`
   bottom: 10px;
 `
 
-const Note = ({ title, content, handleOpen, id, date }) => {
-  console.log(typeof date)
+const Button = styled.button`
+  color: white;
+  background: rebeccapurple;
+  font-size: 1em;
+  font-family: monospace;
+`
+
+const Note = ({ title, content, handleOpen, handleDelete, id, date }) => {
   return (
-    <Card onClick={() => handleOpen(id)}>
-      <Title>{title}</Title>
-      <Content>{content}</Content>
-      <Date>{timeStamp(date)}</Date>
-    </Card>
+    <CardWrapper>
+      <Card onClick={() => handleOpen(id)}>
+        <Title>{title}</Title>
+        <Content>{content}</Content>
+        <Date>{timeStamp(date)}</Date>
+      </Card>
+      <Button onClick={() => handleDelete(id)}>REMOVE</Button>
+    </CardWrapper>
   );
 };
 
