@@ -4,10 +4,10 @@ import { timeStamp } from './helpers';
 
 const Card = styled.div`
   text-align: left;
-  background: papayawhip;
-  box-shadow: 5px 5px 12px lightgray;
-  border: 2px solid rebeccapurple;
-  border-radius: 3px;
+  // background: papayawhip;
+  // box-shadow: 5px 5px 12px lightgray;
+  // border: 2px solid rebeccapurple;
+  // border-radius: 3px;
   padding: 2em;
   min-width: 25%;
   margin-top: 10px;
@@ -17,6 +17,10 @@ const Card = styled.div`
 const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  background: papayawhip;
+  box-shadow: 5px 5px 12px lightgray;
+  border: 2px solid rebeccapurple;
+  border-radius: 3px;
 `
 
 const Title = styled.h1`
