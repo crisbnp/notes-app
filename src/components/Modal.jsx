@@ -10,11 +10,16 @@ const Overlay = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 `
+const ModalWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fe;`
 
 const ModalBox = styled.div`
+  
+  grid-row: 2;
   position:fixed;
-  background: white;
-  width: 80%;
+  width: 100%;
   height: auto;
   top:50%;
   left:50%;
@@ -22,6 +27,8 @@ const ModalBox = styled.div`
 `
 
 const Button = styled.button`
+  grid-row: 1;
+  padding: 30px;
   background: palevioletred;
   color: white;
 `
@@ -29,8 +36,10 @@ const Button = styled.button`
 const Modal = ({ handleClose, show, children }) => {
   return (
     <Overlay show={show}>
-      <ModalBox>{children}</ModalBox>
-      <Button onClick={handleClose}>X</Button>
+      <ModalWrapper>
+        <ModalBox>{children}</ModalBox>
+        <Button onClick={handleClose}>X</Button>
+      </ModalWrapper>
     </Overlay>
   )
 }
